@@ -18,10 +18,13 @@ export const fetchCoins = async () => {
 
         const sortedData = data.map((el) => {
             const mktbearish = el.price_change_percentage_24h_in_currency > 0 ? true : false;
+            const reg = /([?])\w+/g
+
+            const logo = el.image.replace(reg, "");
 
             return {
                 id: el.id,
-                image: el.image,
+                image: logo,
                 prices: el.sparkline_in_7d.price,
                 name: el.name,
                 symbol: el.symbol,

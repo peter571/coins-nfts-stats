@@ -2,6 +2,7 @@ import express from 'express';
 import { fetchCoins } from './controlers/coins.js';
 import { fetchNfts } from './controlers/nfts.js';
 import cors from 'cors';
+import { getNfts } from './controlers/coinMarketNfts.js';
 
 const app = express();
 app.use(cors({ origin: "*" }));
@@ -27,6 +28,16 @@ app.get('/nfts', async (req, res) => {
     }
 })
 
+app.get('/coinMarketNfts', async (req, res) => {
+
+    try {
+        const data = await getNfts();
+        return res.status(200).json({ result: data });
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+})
+
 app.listen(PORT, () => {
-    console.log("Server running on http://localhost:7000")
+    console.log("Server running on http://localhost:5000")
 })
